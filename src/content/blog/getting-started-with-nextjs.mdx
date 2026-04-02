@@ -1,0 +1,66 @@
+---
+title: "Next.js 시작하기: 첫 프로젝트 셋업부터 배포까지"
+description: "Next.js를 처음 접하는 분들을 위한 실전 가이드. 프로젝트 생성부터 Vercel 배포까지 단계별로 정리했습니다."
+date: "2025-03-15"
+tags: ["Next.js", "React", "Tutorial"]
+readingTime: "8 min"
+---
+
+## 왜 Next.js인가?
+
+React만으로도 충분히 웹 앱을 만들 수 있지만, Next.js를 선택한 이유가 있습니다.
+
+- **파일 기반 라우팅**: 폴더 구조가 곧 URL 구조
+- **서버 사이드 렌더링(SSR)**: SEO와 초기 로딩 속도 개선
+- **정적 사이트 생성(SSG)**: 블로그나 포트폴리오에 최적
+- **API Routes**: 간단한 백엔드 로직도 함께 처리 가능
+
+## 프로젝트 생성
+
+```bash
+npx create-next-app@latest my-portfolio --typescript --tailwind --app
+cd my-portfolio
+npm run dev
+```
+
+`--app` 플래그를 사용하면 App Router 기반으로 프로젝트가 생성됩니다.
+
+## 프로젝트 구조 이해하기
+
+```
+src/
+├── app/           # 페이지와 라우팅
+│   ├── layout.tsx # 공통 레이아웃
+│   ├── page.tsx   # 홈페이지
+│   └── about/
+│       └── page.tsx  # /about 페이지
+├── components/    # 재사용 가능한 컴포넌트
+└── lib/           # 유틸리티 함수
+```
+
+## 첫 페이지 만들기
+
+```tsx
+// src/app/page.tsx
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold">안녕하세요!</h1>
+      <p className="mt-4 text-gray-600">나의 첫 Next.js 프로젝트입니다.</p>
+    </main>
+  );
+}
+```
+
+## Vercel로 배포하기
+
+1. GitHub에 레포지토리 생성 및 푸시
+2. [Vercel](https://vercel.com)에 가입
+3. "Import Project"로 GitHub 레포 연결
+4. "Deploy" 클릭
+
+5분이면 전 세계에서 접속 가능한 사이트가 완성됩니다.
+
+## 마무리
+
+Next.js는 배울수록 매력적인 프레임워크입니다. 이 포트폴리오 사이트도 Next.js로 만들어졌으니, 소스 코드를 참고하면서 학습해 보세요!

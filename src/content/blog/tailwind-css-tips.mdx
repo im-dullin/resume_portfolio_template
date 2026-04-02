@@ -1,0 +1,89 @@
+---
+title: "Tailwind CSS를 더 효율적으로 쓰는 팁 7가지"
+description: "Tailwind CSS를 사용하면서 발견한 실용적인 팁과 Best Practice를 공유합니다."
+date: "2025-01-20"
+tags: ["Tailwind CSS", "CSS", "Frontend"]
+readingTime: "6 min"
+---
+
+## Tailwind CSS, 처음엔 어색했다
+
+HTML에 클래스를 잔뜩 쓰는 게 처음에는 어색했지만, 한 번 익숙해지면 돌아갈 수 없게 됩니다.
+
+## 1. cn() 유틸리티 함수 사용하기
+
+조건부 클래스를 깔끔하게 처리할 수 있습니다.
+
+```tsx
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// 사용
+<button className={cn("px-4 py-2", isActive && "bg-blue-500")} />
+```
+
+## 2. 컴포넌트 추출 타이밍
+
+클래스가 3번 이상 반복되면 컴포넌트로 추출합니다.
+
+```tsx
+// Before: 반복되는 카드 스타일
+<div className="rounded-lg border p-6 shadow-sm" />
+<div className="rounded-lg border p-6 shadow-sm" />
+
+// After: 컴포넌트로 추출
+function Card({ children }) {
+  return <div className="rounded-lg border p-6 shadow-sm">{children}</div>;
+}
+```
+
+## 3. @apply는 최소한으로
+
+`@apply`를 남용하면 Tailwind의 장점이 사라집니다. 전역 스타일에만 제한적으로 사용하세요.
+
+## 4. 반응형 디자인은 모바일 퍼스트
+
+```tsx
+// 모바일 → 태블릿 → 데스크톱 순서로 작성
+<div className="text-sm md:text-base lg:text-lg" />
+```
+
+## 5. 다크 모드 지원
+
+```tsx
+<div className="bg-white dark:bg-gray-900">
+  <p className="text-gray-900 dark:text-gray-100">다크 모드 지원!</p>
+</div>
+```
+
+## 6. 커스텀 색상은 CSS 변수로
+
+```css
+:root {
+  --color-brand: #6366f1;
+}
+```
+
+```js
+// tailwind.config.js
+colors: {
+  brand: "var(--color-brand)",
+}
+```
+
+## 7. group과 peer 활용하기
+
+```tsx
+<div className="group">
+  <button>호버해보세요</button>
+  <p className="hidden group-hover:block">나타났다!</p>
+</div>
+```
+
+## 마무리
+
+Tailwind CSS는 "유틸리티 퍼스트"라는 철학을 이해하면 생산성이 크게 올라갑니다. 이 포트폴리오 템플릿도 전부 Tailwind로 스타일링되어 있으니 참고해 보세요!

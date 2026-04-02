@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" fill="none">
+  <rect width="600" height="800" fill="#1a1a1a"/>
+  <circle cx="300" cy="280" r="120" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+  <circle cx="300" cy="260" r="60" fill="#3a3a3a"/>
+  <path d="M200 420 Q300 340 400 420 Q420 500 400 560 L200 560 Q180 500 200 420Z" fill="#3a3a3a"/>
+  <text x="300" y="680" text-anchor="middle" fill="#666" font-family="system-ui" font-size="24" font-weight="500">프로필 이미지를 추가하세요</text>
+  <text x="300" y="720" text-anchor="middle" fill="#555" font-family="system-ui" font-size="16">public/images/ 폴더에 저장</text>
+</svg>

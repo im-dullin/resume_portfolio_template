@@ -1,0 +1,366 @@
+@import "tailwindcss";
+
+:root {
+  /*
+   * Monochrome Minimal Dark Theme
+   * Inspired by Linear, Vercel, Apple — no gradients, no saturated colors
+   */
+  --bg-primary: #09090b;
+  --bg-secondary: #0c0c0e;
+  --bg-tertiary: #141416;
+  --bg-glass: rgba(255, 255, 255, 0.02);
+  --bg-glass-border: rgba(255, 255, 255, 0.06);
+  --text-primary: #fafafa;
+  --text-secondary: #71717a;
+  --text-muted: #3f3f46;
+  --accent: #e4e4e7;
+  --accent-light: #fafafa;
+  --accent-dark: #a1a1aa;
+
+  /* Canyon Red — Herman Miller Cosm Canyon */
+  --canyon: #C14D3C;
+  --canyon-light: #E07A65;
+  --canyon-glow: rgba(193, 77, 60, 0.10);
+  --canyon-border: rgba(193, 77, 60, 0.22);
+
+  /* Moss Green — LiberNovo Omni Moss */
+  --moss: #5E8C50;
+  --moss-light: #8DBF7A;
+  --moss-glow: rgba(94, 140, 80, 0.10);
+  --moss-border: rgba(94, 140, 80, 0.22);
+
+  /* Overlay shades (white-based for dark, black-based for light) */
+  --overlay-2: rgba(255, 255, 255, 0.02);
+  --overlay-4: rgba(255, 255, 255, 0.04);
+  --overlay-5: rgba(255, 255, 255, 0.05);
+  --overlay-6: rgba(255, 255, 255, 0.06);
+  --overlay-8: rgba(255, 255, 255, 0.08);
+  --overlay-12: rgba(255, 255, 255, 0.12);
+  --overlay-15: rgba(255, 255, 255, 0.15);
+  --overlay-20: rgba(255, 255, 255, 0.20);
+  --overlay-25: rgba(255, 255, 255, 0.25);
+
+  /* Named zinc aliases */
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+
+  /* Composite tokens */
+  --bg-nav: rgba(9, 9, 11, 0.85);
+  --bg-overlay: rgba(9, 9, 11, 0.97);
+  --shadow-heavy: rgba(0, 0, 0, 0.6);
+  --card-bottom: rgba(255, 255, 255, 0.95);
+  --card-bottom-text: #3f3f46;
+  --card-bottom-tag-bg: rgba(0, 0, 0, 0.05);
+  --card-bottom-view: #111;
+  --btn-arrow-bg: #fafafa;
+  --btn-arrow-text: #000;
+  --selection-bg: rgba(250, 250, 250, 0.12);
+
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+/* ─── Light theme ─── */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f8fa;
+  --bg-tertiary: #f0f0f2;
+  --bg-glass: rgba(0, 0, 0, 0.02);
+  --bg-glass-border: rgba(0, 0, 0, 0.08);
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #27272a;
+  --accent-light: #18181b;
+  --accent-dark: #71717a;
+
+  /* Overlays inverted */
+  --overlay-2: rgba(0, 0, 0, 0.02);
+  --overlay-4: rgba(0, 0, 0, 0.04);
+  --overlay-5: rgba(0, 0, 0, 0.05);
+  --overlay-6: rgba(0, 0, 0, 0.06);
+  --overlay-8: rgba(0, 0, 0, 0.08);
+  --overlay-12: rgba(0, 0, 0, 0.10);
+  --overlay-15: rgba(0, 0, 0, 0.12);
+  --overlay-20: rgba(0, 0, 0, 0.15);
+  --overlay-25: rgba(0, 0, 0, 0.20);
+
+  /* Named zinc — lighter equivalents */
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #a1a1aa;
+  --color-zinc-800: #d4d4d8;
+
+  /* Composite tokens */
+  --bg-nav: rgba(255, 255, 255, 0.85);
+  --bg-overlay: rgba(255, 255, 255, 0.97);
+  --shadow-heavy: rgba(0, 0, 0, 0.25);
+  --card-bottom: rgba(0, 0, 0, 0.04);
+  --card-bottom-text: #52525b;
+  --card-bottom-tag-bg: rgba(0, 0, 0, 0.06);
+  --card-bottom-view: #18181b;
+  --btn-arrow-bg: #18181b;
+  --btn-arrow-text: #fff;
+  --selection-bg: rgba(0, 0, 0, 0.10);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-glass: var(--bg-glass);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --color-canyon: var(--canyon);
+  --color-canyon-light: var(--canyon-light);
+  --color-moss: var(--moss);
+  --color-moss-light: var(--moss-light);
+  --font-sans: var(--font-inter), var(--font-pretendard), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+/* Scrollbar — near-invisible */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Selection */
+::selection {
+  background: var(--selection-bg);
+  color: var(--text-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass — subtle, no heavy blur */
+.glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+}
+
+/* Accent text — simple white highlight, no gradient */
+.accent-text {
+  color: var(--accent);
+}
+
+/* Hide cursor on touch devices */
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Prose styles for MDX */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--text-primary);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--text-primary);
+  --tw-prose-pre-bg: var(--bg-secondary);
+  line-height: 1.8;
+}
+
+/* ── Code blocks ── */
+.prose pre {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--overlay-8);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem !important;
+  margin: 1.75rem 0 !important;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: var(--overlay-12) transparent;
+}
+
+.prose pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.prose pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+  background: var(--overlay-12);
+  border-radius: 3px;
+}
+
+/* Inline code */
+.prose code {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.prose :not(pre) > code {
+  background: var(--overlay-6);
+  border: 1px solid var(--overlay-8);
+  border-radius: 5px;
+  padding: 0.15em 0.4em;
+  font-size: 0.85em;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+/* ── Headings ── */
+.prose h2 {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--overlay-6);
+}
+
+.prose h2:first-child {
+  margin-top: 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--overlay-6);
+}
+
+.prose h3 {
+  margin-top: 2rem;
+}
+
+/* ── Blockquotes ── */
+.prose blockquote {
+  border-left: 3px solid var(--overlay-20);
+  background: var(--overlay-2);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.prose blockquote p {
+  margin: 0;
+}
+
+/* ── Horizontal rules ── */
+.prose hr {
+  border: none;
+  height: 1px;
+  background: var(--overlay-8);
+  margin: 2.5rem 0;
+}
+
+/* ── Lists ── */
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.prose li {
+  margin: 0.35rem 0;
+}
+
+.prose li::marker {
+  color: var(--text-muted);
+}
+
+/* ── Strong / emphasis ── */
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.prose em {
+  color: var(--text-secondary);
+}
+
+/* ── Links ── */
+.prose a {
+  color: var(--text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text-muted);
+  transition: border-color 0.2s;
+}
+
+.prose a:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+/* ── Images ── */
+.prose img {
+  border-radius: 12px;
+  border: 1px solid var(--overlay-6);
+}
+
+/* ── Tables ── */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+}
+
+.prose th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--overlay-12);
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--overlay-6);
+  color: var(--text-secondary);
+}

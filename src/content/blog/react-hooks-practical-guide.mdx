@@ -1,0 +1,114 @@
+---
+title: "실전에서 자주 쓰는 React Hooks 패턴 5가지"
+description: "useState, useEffect를 넘어서 실무에서 유용한 커스텀 훅 패턴을 정리했습니다."
+date: "2025-02-10"
+tags: ["React", "Hooks", "JavaScript"]
+readingTime: "12 min"
+---
+
+## 기본을 넘어서
+
+`useState`와 `useEffect`는 React의 기본이지만, 실전에서는 더 다양한 패턴이 필요합니다.
+
+## 1. useDebounce - 검색 입력 최적화
+
+API 호출을 줄이기 위해 디바운스 처리하는 훅입니다.
+
+```tsx
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+```
+
+## 2. useLocalStorage - 상태 영속화
+
+```tsx
+function useLocalStorage<T>(key: string, initialValue: T) {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: T) => {
+    setStoredValue(value);
+    window.localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  return [storedValue, setValue] as const;
+}
+```
+
+## 3. useMediaQuery - 반응형 처리
+
+```tsx
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+
+  return matches;
+}
+
+// 사용법
+const isMobile = useMediaQuery("(max-width: 768px)");
+```
+
+## 4. useIntersectionObserver - 무한 스크롤
+
+```tsx
+function useIntersectionObserver(callback: () => void) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && callback(),
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [callback]);
+
+  return ref;
+}
+```
+
+## 5. useFetch - 데이터 페칭 추상화
+
+```tsx
+function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return { data, loading, error };
+}
+```
+
+## 마무리
+
+커스텀 훅을 만들 때 핵심 원칙은 **관심사 분리**입니다. 컴포넌트는 UI에만 집중하고, 로직은 훅으로 분리하면 테스트와 재사용이 쉬워집니다.
