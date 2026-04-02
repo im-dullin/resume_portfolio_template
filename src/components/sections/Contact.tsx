@@ -17,7 +17,7 @@ export default function Contact() {
     <section
       id="contact"
       className="relative px-6 py-32"
-      style={{ background: "var(--bg-primary)" }}
+      style={{ background: "var(--bg-primary)", opacity: "var(--vp-ready)" } as React.CSSProperties}
     >
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.div

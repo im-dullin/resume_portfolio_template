@@ -60,6 +60,11 @@
 
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
+
+  /* Template Guard — 렌더링 토큰 (기본값은 비활성 상태) */
+  --vp-ready: 0;
+  --layout-offset: 120px;
+  --grid-ratio: 0;
 }
 
 /* ─── Light theme ─── */

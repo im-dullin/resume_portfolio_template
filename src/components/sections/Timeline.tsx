@@ -16,17 +16,15 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
    Config
    ──────────────────────────────────────────────────────────────── */
 const VB_W = 1200;
-const VB_H = 4200;
+const N = timelineEntries.length;
+const ENTRY_SPACING = 600;
+const VB_H = Math.max(1200, N * ENTRY_SPACING + 400);
 
-const WAYPOINTS = [
-  { x: 160, y: 200 },
-  { x: 1040, y: 800 },
-  { x: 160, y: 1400 },
-  { x: 1040, y: 2000 },
-  { x: 160, y: 2600 },
-  { x: 1040, y: 3200 },
-  { x: 160, y: 3800 },
-];
+// WAYPOINTS를 데이터 갯수에 맞게 동적 생성
+const WAYPOINTS = Array.from({ length: N }, (_, i) => ({
+  x: i % 2 === 0 ? 160 : 1040,
+  y: 200 + i * ENTRY_SPACING,
+}));
 
 function buildCurvePath(): string {
   const pts = WAYPOINTS;
@@ -41,13 +39,12 @@ function buildCurvePath(): string {
 }
 
 const CURVE_D = buildCurvePath();
-const N = timelineEntries.length;
 
-/* Smoothed spring config — Apple-like damping */
-const SPRING_CFG = { stiffness: 80, damping: 30, mass: 0.5 };
+/* Spring config — path glow 전용 (카드에는 사용하지 않음) */
+const SPRING_CFG = { stiffness: 300, damping: 40, mass: 0.2 };
 
 /* ────────────────────────────────────────────────────────────────
-   useSmoothedTransform — useTransform + useSpring in one
+   useSmoothedTransform — path/dot용 (spring 적용)
    ──────────────────────────────────────────────────────────────── */
 function useSmoothedTransform(
   mv: MotionValue<number>,
@@ -56,6 +53,17 @@ function useSmoothedTransform(
 ) {
   const raw = useTransform(mv, inputRange, outputRange);
   return useSpring(raw, SPRING_CFG);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   useDirectTransform — 카드용 (spring 없이 즉각 반응)
+   ──────────────────────────────────────────────────────────────── */
+function useDirectTransform(
+  mv: MotionValue<number>,
+  inputRange: number[],
+  outputRange: number[],
+) {
+  return useTransform(mv, inputRange, outputRange);
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -199,9 +207,10 @@ function EntryCard({
   const wp = WAYPOINTS[index];
   const isLeft = wp.x < VB_W / 2;
 
-  /* Each card's scroll window — spread across 0.05 to 0.78 so last card has room */
-  const base = 0.05 + (index / (N - 1)) * 0.73;
-  const span = 0.10;
+  /* Each card's scroll window — N개에 맞게 동적으로 분배 */
+  const segmentSize = 0.70 / Math.max(N, 1);
+  const base = 0.05 + index * segmentSize;
+  const span = segmentSize * 0.9;
 
   /* Stagger offsets for each element within the card */
   const s0 = base;                     // period
@@ -210,25 +219,25 @@ function EntryCard({
   const s3 = base + span * 0.5;        // description + achievements
   const s4 = base + span * 0.7;        // tech tags
 
-  /* Card container */
-  const containerOpacity = useSmoothedTransform(scrollYProgress, [s0, s0 + span * 0.3], [0, 1]);
-  const containerY = useSmoothedTransform(scrollYProgress, [s0, s0 + span * 0.6], [60, 0]);
-  const containerScale = useSmoothedTransform(scrollYProgress, [s0, s0 + span * 0.5], [0.96, 1]);
+  /* Card container — spring 없이 즉각 반응 */
+  const containerOpacity = useDirectTransform(scrollYProgress, [s0, s0 + span * 0.3], [0, 1]);
+  const containerY = useDirectTransform(scrollYProgress, [s0, s0 + span * 0.6], [60, 0]);
+  const containerScale = useDirectTransform(scrollYProgress, [s0, s0 + span * 0.5], [0.96, 1]);
 
-  /* Individual element animations */
-  const periodOpacity = useSmoothedTransform(scrollYProgress, [s0, s0 + span * 0.25], [0, 1]);
-  const periodX = useSmoothedTransform(scrollYProgress, [s0, s0 + span * 0.3], [isLeft ? -20 : 20, 0]);
+  /* Individual element animations — spring 없이 즉각 반응 */
+  const periodOpacity = useDirectTransform(scrollYProgress, [s0, s0 + span * 0.25], [0, 1]);
+  const periodX = useDirectTransform(scrollYProgress, [s0, s0 + span * 0.3], [isLeft ? -20 : 20, 0]);
 
-  const titleOpacity = useSmoothedTransform(scrollYProgress, [s1, s1 + span * 0.3], [0, 1]);
-  const titleY = useSmoothedTransform(scrollYProgress, [s1, s1 + span * 0.35], [20, 0]);
+  const titleOpacity = useDirectTransform(scrollYProgress, [s1, s1 + span * 0.3], [0, 1]);
+  const titleY = useDirectTransform(scrollYProgress, [s1, s1 + span * 0.35], [20, 0]);
 
-  const roleOpacity = useSmoothedTransform(scrollYProgress, [s2, s2 + span * 0.3], [0, 1]);
-  const roleY = useSmoothedTransform(scrollYProgress, [s2, s2 + span * 0.35], [14, 0]);
+  const roleOpacity = useDirectTransform(scrollYProgress, [s2, s2 + span * 0.3], [0, 1]);
+  const roleY = useDirectTransform(scrollYProgress, [s2, s2 + span * 0.35], [14, 0]);
 
-  const bodyOpacity = useSmoothedTransform(scrollYProgress, [s3, s3 + span * 0.35], [0, 1]);
-  const bodyY = useSmoothedTransform(scrollYProgress, [s3, s3 + span * 0.4], [14, 0]);
+  const bodyOpacity = useDirectTransform(scrollYProgress, [s3, s3 + span * 0.35], [0, 1]);
+  const bodyY = useDirectTransform(scrollYProgress, [s3, s3 + span * 0.4], [14, 0]);
 
-  const tagsOpacity = useSmoothedTransform(scrollYProgress, [s4, s4 + span * 0.3], [0, 1]);
+  const tagsOpacity = useDirectTransform(scrollYProgress, [s4, s4 + span * 0.3], [0, 1]);
 
   /* Early return AFTER all hooks */
   if (!svgMetrics) return null;
@@ -425,20 +434,20 @@ export default function Timeline() {
     offset: ["start 80%", "end 20%"],
   });
 
-  /* Heading: fade in then out — stays visible longer */
-  const headingOpacity = useSmoothedTransform(
+  /* Heading: fade in then out — 즉각 반응 */
+  const headingOpacity = useDirectTransform(
     scrollYProgress,
-    [0, 0.03, 0.15, 0.22],
+    [0, 0.05, 0.18, 0.25],
     [0, 1, 1, 0],
   );
-  const headingY = useSmoothedTransform(
+  const headingY = useDirectTransform(
     scrollYProgress,
-    [0, 0.03, 0.15, 0.22],
+    [0, 0.05, 0.18, 0.25],
     [30, 0, 0, -20],
   );
-  const headingScale = useSmoothedTransform(
+  const headingScale = useDirectTransform(
     scrollYProgress,
-    [0, 0.03],
+    [0, 0.05],
     [0.97, 1],
   );
 
@@ -488,7 +497,7 @@ export default function Timeline() {
         id="timeline"
         ref={sectionRef}
         className="relative overflow-hidden"
-        style={{ background: "var(--bg-secondary)" }}
+        style={{ background: "var(--bg-secondary)", transform: "translateY(var(--layout-offset))" } as React.CSSProperties}
       >
         {isMobile ? (
           <div className="px-6 pt-32 pb-24">

@@ -44,7 +44,7 @@ export const heroTexts = {
   statusText: "구직 중",          // 상태 표시 (예: "구직 중", "재직 중", "프리랜서")
   locationText: "Republic of Korea",
   ctaText: "프로젝트 보기",
-  profileImage: "/images/profile-placeholder.svg", // 프로필 이미지 경로
+  profileImage: "/images/profile-hero.jpg", // 프로필 이미지 경로 (히어로 섹션용)
 };
 
 // ============================================================

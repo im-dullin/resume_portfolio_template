@@ -9,7 +9,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative flex min-h-screen flex-col overflow-hidden"
-      style={{ background: "var(--bg-primary)" }}
+      style={{ background: "var(--bg-primary)", opacity: "var(--vp-ready)" } as React.CSSProperties}
     >
       {/* ── MAIN CONTENT ── */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col px-6 pb-12 pt-20 md:px-10 lg:flex-row lg:items-end lg:px-16">

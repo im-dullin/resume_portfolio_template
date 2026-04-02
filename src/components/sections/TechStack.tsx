@@ -238,7 +238,7 @@ export default function TechStack() {
       id="techstack"
       ref={sectionRef}
       className="px-6 py-32"
-      style={{ background: "var(--bg-primary)" }}
+      style={{ background: "var(--bg-primary)", opacity: "var(--vp-ready)" } as React.CSSProperties}
     >
       <div className="mx-auto max-w-5xl">
         <motion.div style={{ opacity: headingOpacity, y: headingY }}>

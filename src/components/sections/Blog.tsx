@@ -15,33 +15,34 @@ function useSmoothTransform(
   return useSpring(useTransform(mv, input, output), SPRING);
 }
 
+// 📝 블로그 글을 추가하면 여기도 업데이트하세요 (메인 페이지 미리보기용)
 const samplePosts = [
   {
-    slug: "ai-multi-agent-systems",
-    title: "AI 멀티 에이전트 시스템을 처음 설계하며 배운 것들",
+    slug: "getting-started-with-nextjs",
+    title: "Next.js 시작하기: 첫 프로젝트 셋업부터 배포까지",
     description:
-      "CBAM 자동화 프로젝트에서 멀티 에이전트 아키텍처를 직접 설계하면서 겪은 시행착오와 깨달음을 정리했습니다.",
-    date: "2024.12.15",
-    tags: ["AI", "Architecture"],
+      "Next.js를 처음 접하는 분들을 위한 실전 가이드. 프로젝트 생성부터 Vercel 배포까지 단계별로 정리했습니다.",
+    date: "2025.03.15",
+    tags: ["Next.js", "Tutorial"],
     readingTime: "8 min",
   },
   {
-    slug: "nextjs-app-router-deep-dive",
-    title: "Next.js App Router를 실전에서 쓰며 깨달은 것들",
+    slug: "react-hooks-practical-guide",
+    title: "실전에서 자주 쓰는 React Hooks 패턴 5가지",
     description:
-      "Server Component와 Client Component의 경계에서 겪은 혼란과, 실제 프로젝트에서 정립한 나만의 기준을 공유합니다.",
-    date: "2025.08.20",
-    tags: ["Next.js", "React"],
-    readingTime: "10 min",
+      "useState, useEffect를 넘어서 실무에서 유용한 커스텀 훅 패턴을 정리했습니다.",
+    date: "2025.02.10",
+    tags: ["React", "Hooks"],
+    readingTime: "12 min",
   },
   {
-    slug: "ten-projects-retrospective",
-    title: "1년간 10개 이상의 프로젝트를 만들며 배운 것",
+    slug: "tailwind-css-tips",
+    title: "Tailwind CSS를 더 효율적으로 쓰는 팁 7가지",
     description:
-      "기업 웹사이트, SaaS, POS, 오픈소스까지 — 다양한 프로젝트를 빠르게 전환하며 얻은 교훈을 정리합니다.",
-    date: "2026.01.15",
-    tags: ["Career", "Retrospective"],
-    readingTime: "10 min",
+      "Tailwind CSS를 사용하면서 발견한 실용적인 팁과 Best Practice를 공유합니다.",
+    date: "2025.01.20",
+    tags: ["Tailwind CSS", "Frontend"],
+    readingTime: "6 min",
   },
 ];
 
@@ -240,7 +241,7 @@ export default function Blog() {
       id="blog"
       ref={sectionRef}
       className="px-6 py-32"
-      style={{ background: "var(--bg-secondary)" }}
+      style={{ background: "var(--bg-secondary)", transform: `scale(var(--grid-ratio))` } as React.CSSProperties}
     >
       <div className="mx-auto max-w-5xl">
         <motion.div style={{ opacity: headingOpacity, y: headingY }}>

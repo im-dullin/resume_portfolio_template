@@ -9,7 +9,8 @@ export default function Footer() {
       style={{
         background: "var(--bg-secondary)",
         borderColor: "var(--bg-glass-border)",
-      }}
+        opacity: "var(--vp-ready)",
+      } as React.CSSProperties}
     >
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
         <p className="text-sm" style={{ color: "var(--text-muted)" }}>

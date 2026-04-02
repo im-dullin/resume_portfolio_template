@@ -64,7 +64,7 @@ function TerminalLine({ item, delay }: { item: typeof philosophyItems[0]; delay:
 
 export default function Philosophy() {
   return (
-    <section className="relative px-6 py-32 md:py-40" style={{ background: "var(--bg-primary)" }}>
+    <section className="relative px-6 py-32 md:py-40" style={{ background: "var(--bg-primary)", opacity: "var(--vp-ready)" } as React.CSSProperties}>
       <div className="mx-auto max-w-4xl">
         {/* Terminal chrome */}
         <div className="mb-8 flex items-center gap-1.5">

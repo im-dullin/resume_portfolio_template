@@ -24,7 +24,7 @@ export default function About() {
     <section
       id="about"
       className="relative overflow-hidden px-6 py-32"
-      style={{ background: "var(--bg-secondary)" }}
+      style={{ background: "var(--bg-secondary)", transform: "translateY(var(--layout-offset))" } as React.CSSProperties}
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeading label="소개" title="한눈에 보기" />

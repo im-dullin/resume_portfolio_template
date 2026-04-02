@@ -85,7 +85,7 @@ export default function HybridBluePreview() {
           </div>
           <div style={{ width: "50%", position: "relative" }}>
             <div style={{ position: "relative", height: "85vh", borderRadius: 16, overflow: "hidden", border: `1px solid ${D.border}` }}>
-              <Image src="/images/profile-placeholder.svg" alt="홍길동" fill style={{ objectFit: "cover", objectPosition: "top", filter: "grayscale(100%) contrast(1.1)" }} sizes="50vw" priority />
+              <Image src="/images/profile-hero.jpg" alt="홍길동" fill style={{ objectFit: "cover", objectPosition: "top", filter: "grayscale(100%) contrast(1.1)" }} sizes="50vw" priority />
               <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${D.bg}, transparent 33%)` }} />
               <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 40% at 50% 35%, rgba(37,99,235,0.06), transparent 70%)" }} />
             </div>

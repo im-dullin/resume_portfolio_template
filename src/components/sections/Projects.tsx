@@ -42,7 +42,7 @@ export default function Projects() {
     <section
       id="projects"
       className="relative py-24 lg:py-32"
-      style={{ background: "var(--bg-primary)" }}
+      style={{ background: "var(--bg-primary)", opacity: "var(--vp-ready)", transform: `scale(var(--grid-ratio))` } as React.CSSProperties}
     >
       <div className="mx-auto w-full max-w-7xl px-6">
         {/* Section label */}
